@@ -4,22 +4,16 @@ document.getElementById("contactForm").addEventListener("submit", function (even
     let email = document.getElementById("email").value.trim();
     let phone = document.getElementById("phone").value.trim();
     let problem = document.getElementById("problem").value.trim();
-
-    // Check empty fields
     if (name === "" || email === "" || phone === "" || problem === "") {
         alert("Enter all details!");
         event.preventDefault();
         return;
     }
-
-    // Email validation
     if (!email.includes("@") || !email.includes(".")) {
         alert("Enter a valid email!");
         event.preventDefault();
         return;
     }
-
-    // Phone validation (10 digits)
     let phonePattern = /^[0-9]{10}$/;
 
     if (!phonePattern.test(phone)) {
@@ -28,8 +22,6 @@ document.getElementById("contactForm").addEventListener("submit", function (even
         return;
     }
 });
-
-// Add Task
 function addTask() {
     let input = document.getElementById("problem");
     let taskText = input.value.trim();
@@ -47,10 +39,8 @@ function addTask() {
 
     input.value = "";
 
-    loadTasks(); // Update UI instantly
+    loadTasks();
 }
-
-// Load Tasks
 function loadTasks() {
     let taskList = document.getElementById("taskList");
     taskList.innerHTML = "";
@@ -63,8 +53,6 @@ function loadTasks() {
         taskList.appendChild(li);
     });
 }
-
-// Show / Hide Tasks
 function toggleTasks() {
     let list = document.getElementById("taskList");
 
@@ -74,8 +62,6 @@ function toggleTasks() {
         list.style.display = "none";
     }
 }
-
-// Reset Tasks
 function resetTasks() {
     localStorage.removeItem("tasks");
     document.getElementById("taskList").innerHTML = "";
