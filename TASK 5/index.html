@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHARE-NOTES - College Notes Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Work+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="nav-primary">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-icon">SN</div>
+                <span class="brand-text">SHARE-NOTES</span>
+            </div>
+
+            <div class="nav-links">
+                <a href="#browse" class="nav-link active">Browse</a>
+                <a href="#submit" class="nav-link">Submit Notes</a>
+                <a href="#offline" class="nav-link">Offline</a>
+                <a href="#moderation" class="nav-link mod-only">Moderation</a>
+            </div>
+
+            <div class="nav-actions">
+                <button class="btn-auth" id="authBtn">Sign In</button>
+                <div class="user-menu hidden" id="userMenu">
+                    <div class="user-avatar">
+                        <span id="userInitial">U</span>
+                    </div>
+                    <div class="user-dropdown">
+                        <div class="user-info">
+                            <p class="user-name" id="userName">User</p>
+                            <p class="user-role" id="userRole">Student</p>
+                        </div>
+                        <hr>
+                        <a href="#submissions" class="dropdown-item">My Submissions</a>
+                        <a href="#settings" class="dropdown-item">Settings</a>
+                        <button class="dropdown-item btn-signout" id="signOutBtn">Sign Out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-line">Knowledge</span>
+                <span class="title-line">Shared,</span>
+                <span class="title-line accent">Multiplied</span>
+            </h1>
+            <p class="hero-subtitle">A curated repository of college notes, verified by peers, accessible offline, built
+                for students.</p>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">17</div>
+                    <div class="stat-label">Verified Notes</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Contributors</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">Subjects</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-decoration">
+            <svg viewBox="0 0 400 400" class="decoration-svg">
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#2C5F2D;stop-opacity:0.2" />
+                        <stop offset="100%" style="stop-color:#97BC62;stop-opacity:0.1" />
+                    </linearGradient>
+                </defs>
+                <circle cx="200" cy="200" r="150" fill="url(#grad1)" opacity="0.3" />
+                <path d="M150 200 L250 200 M200 150 L200 250" stroke="#2C5F2D" stroke-width="2" opacity="0.4" />
+                <circle cx="150" cy="150" r="30" fill="none" stroke="#97BC62" stroke-width="2" opacity="0.3" />
+                <circle cx="250" cy="250" r="40" fill="none" stroke="#2C5F2D" stroke-width="1.5" opacity="0.2" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filters-section" id="browse">
+        <div class="container">
+            <div class="filters-header">
+                <h2 class="section-title">Browse Notes</h2>
+                <p class="section-subtitle">Filter by subject and unit to find exactly what you need</p>
+            </div>
+
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="subjectFilter" class="filter-label">Subject</label>
+                    <select id="subjectFilter" class="filter-select">
+                        <option value="">All Subjects</option>
+                        <option value="mathematics">Mathematics</option>
+                        <option value="physics">Physics</option>
+                        <option value="chemistry">Chemistry</option>
+                        <option value="computer-science">Computer Science</option>
+                        <option value="biology">Biology</option>
+                        <option value="economics">Economics</option>
+                        <option value="literature">Literature</option>
+                        <option value="history">History</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="unitFilter" class="filter-label">Unit</label>
+                    <select id="unitFilter" class="filter-select">
+                        <option value="">All Units</option>
+                        <option value="1">Unit 1</option>
+                        <option value="2">Unit 2</option>
+                        <option value="3">Unit 3</option>
+                        <option value="4">Unit 4</option>
+                        <option value="5">Unit 5</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="searchFilter" class="filter-label">Search</label>
+                    <input type="text" id="searchFilter" class="filter-input"
+                        placeholder="Search by title or keywords...">
+                </div>
+
+                <button class="btn-filter">Apply Filters</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notes Grid -->
+    <section class="notes-section">
+        <div class="container">
+            <div class="notes-grid" id="notesGrid">
+                <!-- Note Card 1 -->
+                <article class="note-card">
+                    <div class="note-header">
+                        <div class="note-meta">
+                            <span class="note-subject">Mathematics</span>
+                            <span class="note-unit">Unit 3</span>
+                        </div>
+                        <button class="btn-save" title="Save for offline">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <h3 class="note-title">Differential Equations & Applications</h3>
+                    <p class="note-description">Comprehensive notes covering first and second order differential
+                        equations, including real-world applications in physics and engineering.</p>
+
+                    <div class="note-footer">
+                        <div class="note-info">
+                            <span class="note-author">By Sarah Chen</span>
+                            <span class="note-date">Jan 15, 2026</span>
+                        </div>
+                        <button class="btn-view">View Notes</button>
+                    </div>
+                </article>
+
+                <!-- Note Card 2 -->
+                <article class="note-card">
+                    <div class="note-header">
+                        <div class="note-meta">
+                            <span class="note-subject">Computer Science</span>
+                            <span class="note-unit">Unit 2</span>
+                        </div>
+                        <button class="btn-save saved" title="Saved offline">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <h3 class="note-title">Data Structures: Trees & Graphs</h3>
+                    <p class="note-description">Detailed explanations of binary trees, AVL trees, B-trees, graph
+                        representations, and traversal algorithms with code examples.</p>
+
+                    <div class="note-footer">
+                        <div class="note-info">
+                            <span class="note-author">By Marcus Johnson</span>
+                            <span class="note-date">Jan 20, 2026</span>
+                        </div>
+                        <button class="btn-view">View Notes</button>
+                    </div>
+                </article>
+
+                <!-- Note Card 3 -->
+                <article class="note-card">
+                    <div class="note-header">
+                        <div class="note-meta">
+                            <span class="note-subject">Physics</span>
+                            <span class="note-unit">Unit 4</span>
+                        </div>
+                        <button class="btn-save" title="Save for offline">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <h3 class="note-title">Quantum Mechanics Fundamentals</h3>
+                    <p class="note-description">Introduction to wave-particle duality, Schrödinger equation, quantum
+                        operators, and uncertainty principle with solved problems.</p>
+
+                    <div class="note-footer">
+                        <div class="note-info">
+                            <span class="note-author">By Dr. Patel</span>
+                            <span class="note-date">Jan 12, 2026</span>
+                        </div>
+                        <button class="btn-view">View Notes</button>
+                    </div>
+                </article>
+
+                <!-- Note Card 4 -->
+                <article class="note-card">
+                    <div class="note-header">
+                        <div class="note-meta">
+                            <span class="note-subject">Chemistry</span>
+                            <span class="note-unit">Unit 1</span>
+                        </div>
+                        <button class="btn-save" title="Save for offline">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <h3 class="note-title">Organic Chemistry: Reaction Mechanisms</h3>
+                    <p class="note-description">Complete guide to nucleophilic substitution, elimination reactions, and
+                        addition reactions with detailed mechanisms and practice problems.</p>
+
+                    <div class="note-footer">
+                        <div class="note-info">
+                            <span class="note-author">By Emma Rodriguez</span>
+                            <span class="note-date">Feb 1, 2026</span>
+                        </div>
+                        <button class="btn-view">View Notes</button>
+                    </div>
+                </article>
+
+                <!-- Note Card 5 -->
+                <article class="note-card">
+                    <div class="note-header">
+                        <div class="note-meta">
+                            <span class="note-subject">Economics</span>
+                            <span class="note-unit">Unit 3</span>
+                        </div>
+                        <button class="btn-save" title="Save for offline">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <h3 class="note-title">Macroeconomic Policy & Analysis</h3>
+                    <p class="note-description">Fiscal and monetary policy tools, IS-LM model, aggregate demand-supply
+                        analysis, and contemporary policy debates.</p>
+
+                    <div class="note-footer">
+                        <div class="note-info">
+                            <span class="note-author">By Alex Kumar</span>
+                            <span class="note-date">Jan 28, 2026</span>
+                        </div>
+                        <button class="btn-view">View Notes</button>
+                    </div>
+                </article>
+
+                <!-- Note Card 6 -->
+                <article class="note-card">
+                    <div class="note-header">
+                        <div class="note-meta">
+                            <span class="note-subject">Biology</span>
+                            <span class="note-unit">Unit 2</span>
+                        </div>
+                        <button class="btn-save saved" title="Saved offline">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <h3 class="note-title">Cellular Respiration & Photosynthesis</h3>
+                    <p class="note-description">Detailed breakdown of glycolysis, Krebs cycle, electron transport chain,
+                        and light-dependent/independent reactions with diagrams.</p>
+
+                    <div class="note-footer">
+                        <div class="note-info">
+                            <span class="note-author">By Lisa Wong</span>
+                            <span class="note-date">Jan 18, 2026</span>
+                        </div>
+                        <button class="btn-view">View Notes</button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Submit Section -->
+    <section class="submit-section hidden" id="submit">
+        <div class="container">
+            <div class="submit-container">
+                <div class="submit-header">
+                    <h2 class="section-title">Submit Your Notes</h2>
+                    <p class="section-subtitle">Share your knowledge with fellow students. All submissions are reviewed
+                        before publication.</p>
+                </div>
+
+                <form class="submit-form" id="submitForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="noteSubject" class="form-label">Subject *</label>
+                            <select id="noteSubject" class="form-input" required>
+                                <option value="">Select subject</option>
+                                <option value="mathematics">Mathematics</option>
+                                <option value="physics">Physics</option>
+                                <option value="chemistry">Chemistry</option>
+                                <option value="computer-science">Computer Science</option>
+                                <option value="biology">Biology</option>
+                                <option value="economics">Economics</option>
+                                <option value="literature">Literature</option>
+                                <option value="history">History</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="noteUnit" class="form-label">Unit *</label>
+                            <select id="noteUnit" class="form-input" required>
+                                <option value="">Select unit</option>
+                                <option value="1">Unit 1</option>
+                                <option value="2">Unit 2</option>
+                                <option value="3">Unit 3</option>
+                                <option value="4">Unit 4</option>
+                                <option value="5">Unit 5</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="noteTitle" class="form-label">Title *</label>
+                        <input type="text" id="noteTitle" class="form-input"
+                            placeholder="e.g., Differential Equations & Applications" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="noteDescription" class="form-label">Description *</label>
+                        <textarea id="noteDescription" class="form-textarea" rows="4"
+                            placeholder="Provide a brief description of the content covered in your notes..."
+                            required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="noteFile" class="form-label">Upload File *</label>
+                        <div class="file-upload">
+                            <input type="file" id="noteFile" accept=".pdf,.doc,.docx" required hidden>
+                            <label for="noteFile" class="file-upload-label">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="17 8 12 3 7 8" />
+                                    <line x1="12" y1="3" x2="12" y2="15" />
+                                </svg>
+                                <span class="file-text">Choose file or drag here</span>
+                                <span class="file-info">PDF, DOC, DOCX (Max 10MB)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-submit">Submit for Review</button>
+                        <button type="button" class="btn-secondary">Save as Draft</button>
+                    </div>
+                </form>
+
+                <!-- My Submissions -->
+                <div class="submissions-section">
+                    <h3 class="submissions-title">My Submissions</h3>
+
+                    <div class="submissions-list">
+                        <div class="submission-card pending">
+                            <div class="submission-status">
+                                <span class="status-badge pending">Under Review</span>
+                            </div>
+                            <h4 class="submission-title">Linear Algebra: Eigenvalues & Eigenvectors</h4>
+                            <p class="submission-meta">Mathematics • Unit 4 • Submitted Feb 5, 2026</p>
+                        </div>
+
+                        <div class="submission-card verified">
+                            <div class="submission-status">
+                                <span class="status-badge verified">Verified</span>
+                            </div>
+                            <h4 class="submission-title">Database Normalization Techniques</h4>
+                            <p class="submission-meta">Computer Science • Unit 3 • Published Feb 1, 2026</p>
+                        </div>
+
+                        <div class="submission-card rejected">
+                            <div class="submission-status">
+                                <span class="status-badge rejected">Rejected</span>
+                            </div>
+                            <h4 class="submission-title">Thermodynamics Laws</h4>
+                            <p class="submission-meta">Physics • Unit 2 • Rejected Jan 28, 2026</p>
+                            <p class="rejection-reason">Reason: Content incomplete - missing numerical examples and
+                                practice problems.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offline Section -->
+    <section class="offline-section hidden" id="offline">
+        <div class="container">
+            <div class="offline-header">
+                <h2 class="section-title">Offline Notes</h2>
+                <p class="section-subtitle">Access your saved notes anytime, even without internet connection</p>
+            </div>
+
+            <div class="offline-grid" id="offlineGrid">
+                <!-- Saved Note 1 -->
+                <article class="offline-card">
+                    <div class="offline-meta">
+                        <span class="note-subject">Computer Science</span>
+                        <span class="note-unit">Unit 2</span>
+                    </div>
+
+                    <h3 class="offline-title">Data Structures: Trees & Graphs</h3>
+                    <p class="offline-author">By Marcus Johnson</p>
+
+                    <div class="offline-actions">
+                        <button class="btn-view">Open</button>
+                        <button class="btn-remove">Remove</button>
+                    </div>
+                </article>
+
+                <!-- Saved Note 2 -->
+                <article class="offline-card">
+                    <div class="offline-meta">
+                        <span class="note-subject">Biology</span>
+                        <span class="note-unit">Unit 2</span>
+                    </div>
+
+                    <h3 class="offline-title">Cellular Respiration & Photosynthesis</h3>
+                    <p class="offline-author">By Lisa Wong</p>
+
+                    <div class="offline-actions">
+                        <button class="btn-view">Open</button>
+                        <button class="btn-remove">Remove</button>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state hidden" id="offlineEmpty">
+                <svg viewBox="0 0 200 200" class="empty-svg">
+                    <circle cx="100" cy="100" r="80" fill="none" stroke="#97BC62" stroke-width="2" opacity="0.2" />
+                    <path d="M80 90 L120 90 M80 110 L120 110 M100 70 L100 130" stroke="#2C5F2D" stroke-width="3"
+                        opacity="0.3" />
+                </svg>
+                <h3 class="empty-title">No offline notes yet</h3>
+                <p class="empty-text">Save notes for offline access by clicking the bookmark icon on any note card</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Moderation Section (Moderator Only) -->
+    <section class="moderation-section hidden mod-only" id="moderation">
+        <div class="container">
+            <div class="moderation-header">
+                <h2 class="section-title">Moderation Queue</h2>
+                <p class="section-subtitle">Review and verify submitted notes</p>
+            </div>
+
+            <div class="moderation-list">
+                <!-- Pending Note 1 -->
+                <div class="moderation-card">
+                    <div class="mod-card-header">
+                        <div class="mod-meta">
+                            <span class="note-subject">Mathematics</span>
+                            <span class="note-unit">Unit 4</span>
+                            <span class="mod-date">Submitted Feb 5, 2026</span>
+                        </div>
+                    </div>
+
+                    <h3 class="mod-title">Linear Algebra: Eigenvalues & Eigenvectors</h3>
+                    <p class="mod-description">Comprehensive notes on eigenvalues, eigenvectors, diagonalization, and
+                        applications in differential equations and transformations.</p>
+                    <p class="mod-author">Submitted by: John Smith (john.smith@college.edu)</p>
+
+                    <div class="mod-actions">
+                        <button class="btn-verify">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Verify
+                        </button>
+                        <button class="btn-reject">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                            Reject
+                        </button>
+                        <button class="btn-preview">Preview File</button>
+                    </div>
+                </div>
+
+                <!-- Pending Note 2 -->
+                <div class="moderation-card">
+                    <div class="mod-card-header">
+                        <div class="mod-meta">
+                            <span class="note-subject">Physics</span>
+                            <span class="note-unit">Unit 5</span>
+                            <span class="mod-date">Submitted Feb 6, 2026</span>
+                        </div>
+                    </div>
+
+                    <h3 class="mod-title">Electromagnetic Waves & Optics</h3>
+                    <p class="mod-description">Notes covering Maxwell's equations, wave propagation, reflection,
+                        refraction, interference, and diffraction phenomena.</p>
+                    <p class="mod-author">Submitted by: Maria Garcia (maria.garcia@college.edu)</p>
+
+                    <div class="mod-actions">
+                        <button class="btn-verify">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Verify
+                        </button>
+                        <button class="btn-reject">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                            Reject
+                        </button>
+                        <button class="btn-preview">Preview File</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Rejection Reason -->
+    <div class="modal hidden" id="rejectModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Reject Submission</h3>
+                <button class="modal-close">×</button>
+            </div>
+
+            <div class="modal-body">
+                <p class="modal-text">Please provide a reason for rejection to help the submitter improve their notes:
+                </p>
+                <textarea class="form-textarea" rows="4"
+                    placeholder="e.g., Content incomplete, missing examples, formatting issues..."></textarea>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-secondary">Cancel</button>
+                <button class="btn-submit">Confirm Rejection</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 class="footer-title">Nota Bene</h4>
+                    <p class="footer-text">Empowering students through shared knowledge</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <a href="#about" class="footer-link">About Us</a>
+                    <a href="#guidelines" class="footer-link">Submission Guidelines</a>
+                    <a href="#faq" class="footer-link">FAQ</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Support</h4>
+                    <a href="#contact" class="footer-link">Contact</a>
+                    <a href="#privacy" class="footer-link">Privacy Policy</a>
+                    <a href="#terms" class="footer-link">Terms of Service</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Priyanshu Kumar. Built for students, by students.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
